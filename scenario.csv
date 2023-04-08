@@ -1,0 +1,13 @@
+unit;A;faction;down;type;ranger;count;500;
+unit;B;faction;up;type;swordman;count;500;is_charging
+unit;C;faction;up;type;swordman;count;500;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;C;;;
+;;;;;;;;
+;;;;;A;;;
+;;;;;;;;
+;;;;;B;;;
+;;;;;;;;

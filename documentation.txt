@@ -1,0 +1,46 @@
+### SCENARIO.CSV ###
+2 sections:
+
+SECTION 1) Décrire les unités
+- Une ligne = une unité
+- Exemple: unit;B;faction;up;type;swordman;count;500;is_charging
+- Champs obligatoires:
+--- unit: doit être le premier champs. Doit avoir à sa droite le nom de l'unité
+--- faction: doit avoir à sa droite "up" ou "down", selon l'orientation de l'unité
+--- type: doit avoir à sa droite un type d'unité définit dans UNITTYPE.CSV
+--- count: doit avoir à sa droite un nombre entier positif
+- Champs non obligatoires:
+--- is_charging, s'il est présent l'unité sera considérée en train de charger
+
+SECTION 2) La Map
+La map contient les noms des unités, pour les placer géographiquement
+/ \_/ \_/ \_/ \_/ \_/ \
+\_/ \_/ \_/ \_/ \_/ \_/
+/ \_/ \_/ \_/F\_/ \_/ \
+\_/ \_/ \_/E\_/G\_/ \_/
+/ \_/ \_/ \_/A\_/ \_/ \
+\_/ \_/ \_/D\_/C\_/ \_/
+/ \_/ \_/ \_/B\_/ \_/ \
+\_/ \_/ \_/ \_/ \_/ \_/
+
+Se met sous forme de grille rectangulaire ainsi:
+|_|_|_|_|_|_|_|_|_|_|_|
+|_|_|_|_|_|_|_|_|_|_|_|
+|_|_|_|_|_|_|F|_|_|_|_|
+|_|_|_|_|_|E|_|G|_|_|_|
+|_|_|_|_|_|_|A|_|_|_|_|
+|_|_|_|_|_|D|_|C|_|_|_|
+|_|_|_|_|_|_|B|_|_|_|_|
+Notez qu'une case sur deux est "fantôme"
+L'important est de conserver le placement relatif des unités entre elles
+
+Et quand on convertit en csv:
+;_;_;_;_;_;_;_;_;_;_;_;
+;_;_;_;_;_;_;_;_;_;_;_;
+;_;_;_;_;_;_;F;_;_;_;_;
+;_;_;_;_;_;E;_;G;_;_;_;
+;_;_;_;_;_;_;A;_;_;_;_;
+;_;_;_;_;_;D;_;C;_;_;_;
+;_;_;_;_;_;_;B;_;_;_;_;
+
+Note: les cases contenant rien,'_' ou ' ' sont toutes considérées comme vides
