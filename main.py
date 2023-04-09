@@ -84,8 +84,9 @@ def calculateWeaponBonus(attacker:unit.Unit, defender:unit.Unit):
         
     ### CAVALRY SPECIFIC BONUSES
     if attacker.type.type == "CAVALRY":
-        pass #NOTHING
-
+        if attacker.type.subtype == "HAST" and attacker.isCharging == True:
+            output+= .5
+    
     return output
 
 def calculateRandomDeviation():
