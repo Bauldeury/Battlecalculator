@@ -97,7 +97,6 @@ def loadUnit(args:"list[str]"):
 
     if "is_charging" in args:
         unit.isCharging = True
-        print("CHARGGEEEEEE")
 
 
     units[unit.key] = unit

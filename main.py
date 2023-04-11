@@ -6,8 +6,6 @@ import unit
 
 
 
-
-
 def loadScenario():
     with open(config.scenarioFile) as csvfile:
         reader = csv.reader(csvfile,delimiter=config.delimiter)
@@ -27,7 +25,15 @@ def loadScenario():
 
 def computeScenario():
     for u in unit.units.values():
-        u.damageTaken = 0
+        u._damageTaken = 0
+        u._currentDirection = "FORWARD"
+        for neighboor,direction in {
+            (u.getUnitForward(),"FORWARD"),(u.getUnitForwardLeft(),"FORWARD"),(u.getUnitForwardRight(),"FORWARD"),
+            (u.getUnitBackward(),"BACKWARD"),(u.getUnitBackwardLeft(),"BACKWARD"),(u.getUnitBackwardRight(),"BACKWARD")
+            }:
+            if neighboor != None:
+                u._currentDirection = direction
+                break
 
     for u in unit.units.values():
 
@@ -45,17 +51,17 @@ def computeScenario():
         if len(frontUnits) > 0:
             for enemy in frontUnits:
                 damage = (u.type.attack * u.count) * (1 + calculateWeaponBonus(u,enemy) + calculateRandomDeviation()) / len(frontUnits)
-                enemy.damageTaken += damage
+                enemy._damageTaken += damage
         elif len(backUnits) > 0:
              for enemy in backUnits:
-                damage = (u.type.attack * u.count) * (1 + calculateWeaponBonus(u,enemy) + calculateRandomDeviation()) / len(backUnits)
-                enemy.damageTaken += damage
+                damage = (u.type.attack * u.count) * (1 + calculateWeaponBonus(u,enemy) + calculateRandomDeviation() + calculateFlankingBonus(u,enemy,enemy._currentDirection)) / len(backUnits)
+                enemy._damageTaken += damage
 
 
     for u in unit.units.values():
-        u.count = int(u.count - u.damageTaken/u.type.life)
+        u.count = int(u.count - u._damageTaken/u.type.life)
 
-def calculateWeaponBonus(attacker:unit.Unit, defender:unit.Unit):
+def calculateWeaponBonus(attacker:unit.Unit, defender:unit.Unit) -> float:
     '''Output: 0 is neutral, 1 is doubling damage, -0.5 is halving damage'''
     output = 0
 
@@ -89,8 +95,19 @@ def calculateWeaponBonus(attacker:unit.Unit, defender:unit.Unit):
     
     return output
 
-def calculateRandomDeviation():
+def calculateRandomDeviation() -> float:
+    '''Output: 0 is neutral, 1 is doubling damage, -0.5 is halving damage'''
     return (random.random()*2-1)*config.randomPart
+
+def calculateFlankingBonus(attacker:unit.Unit, defender:unit.Unit,defenderOrientation:str) -> float:
+    '''Output: 0 is neutral, 1 is doubling damage, -0.5 is halving damage'''
+    if defenderOrientation != "FORWARD" :
+        return 0
+    if defender.getUnitBackward() == attacker :
+        return config.backstabBonus
+    elif defender.getUnitBackwardLeft() == attacker or defender.getUnitBackwardRight() == attacker:
+        return config.flankingBonus
+    return 0
 
 def outputResults():
     with open(config.outputFile,"w",newline=config.lineTerminator) as csvfile:
