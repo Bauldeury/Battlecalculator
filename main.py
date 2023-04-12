@@ -3,7 +3,7 @@ import config
 import random
 import unitType
 import unit
-
+import os
 
 
 def loadScenario():
@@ -138,6 +138,7 @@ def main():
     outputResults()
     print("Output writen at {}".format(config.outputFile))
     print()
+    os.system('pause')
 
 
 

@@ -1,3 +1,14 @@
+### UNITTYPES.CSV ###
+Types autorisés(attention à bien respecter les majuscules):
+-INFANTRY
+-CAVALRY
+-RANGED
+Soustypes autorisés(attention à bien respecter les majuscules):
+-TWO_HANDED
+-TWO_WEAPONS
+-SHIELD
+-HAST
+
 ### SCENARIO.CSV ###
 2 sections:
 
