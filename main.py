@@ -67,7 +67,7 @@ def calculateWeaponBonus(attacker:unit.Unit, defender:unit.Unit) -> float:
 
     ### NON SPECIFIC BONUSES
     if attacker.type.subtype == "SHIELD" and defender.type.subtype == "HAST":
-        output+= .5
+        output+= .25
     if attacker.type.subtype == "SHIELD" and defender.type.type == "RANGED":
         output+= .25
 
@@ -75,15 +75,15 @@ def calculateWeaponBonus(attacker:unit.Unit, defender:unit.Unit) -> float:
     ### INFANTRY SPECIFIC BONUSES
     if attacker.type.type == "INFANTRY":
         if attacker.type.subtype == "HAST" and defender.type.subtype == "TWO_HANDED":
-            output+= .5
+            output+= .25
         if attacker.type.subtype == "HAST" and defender.type.type == "CAVALRY":
             output+= .25
         if attacker.type.subtype == "TWO_HANDED" and defender.type.subtype == "TWO_WEAPONS":
-            output+= .5
+            output+= .25
         if attacker.type.subtype == "TWO_HANDED" and defender.type.subtype == "SHIELD":
             output+= .25
         if attacker.type.subtype == "TWO_WEAPONS" and defender.type.subtype == "SHIELD":
-            output+= .5
+            output+= .25
         if attacker.type.subtype == "TWO_WEAPONS" and defender.type.type == "RANGED":
             output+= .25
 
